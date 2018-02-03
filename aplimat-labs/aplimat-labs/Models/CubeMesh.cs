@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using aplimat_labs.Utilities;
 
 namespace aplimat_labs.Models
 {
     public class CubeMesh
     {
         public Vector3 Position;
-        
+        private Randomizer rng = new Randomizer(0.1, 0.5);
         public CubeMesh()
         {
             this.Position = new Vector3();
@@ -25,15 +26,15 @@ namespace aplimat_labs.Models
         {
             this.Position = new Vector3(x, y, z);
         }
-
+        
         public void Draw(OpenGL gl)
         {
             gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
             //Front
-            gl.Vertex(this.Position.x - 0.5f, this.Position.y + 0.5f, this.Position.z + 0.5f);
-            gl.Vertex(this.Position.x - 0.5f, this.Position.y - 0.5f, this.Position.z + 0.5f);
-            gl.Vertex(this.Position.x + 0.5f, this.Position.y + 0.5f, this.Position.z + 0.5f);
-            gl.Vertex(this.Position.x + 0.5f, this.Position.y - 0.5f, this.Position.z + 0.5f);
+            gl.Vertex(this.Position.x - 0.5f, this.Position.y + rng.GenerateDouble(), this.Position.z + 0.5f);
+            gl.Vertex(this.Position.x - 0.5f, this.Position.y - rng.GenerateDouble(), this.Position.z + 0.5f);
+            gl.Vertex(this.Position.x + 0.5f, this.Position.y + rng.GenerateDouble(), this.Position.z + 0.5f);
+            gl.Vertex(this.Position.x + 0.5f, this.Position.y - rng.GenerateDouble(), this.Position.z + 0.5f);
          
 
             //Right 

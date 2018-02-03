@@ -37,7 +37,7 @@ namespace aplimat_labs
 
         private Randomizer rng = new Randomizer(-20,20);
         private Randomizer colorA = new Randomizer(0.0, 1.0);
-        private Randomizer colorB = new Randomizer(0.0, 1.0);
+        private Randomizer colorB = new Randomizer(1.0, 2.0);
         private Randomizer colorC = new Randomizer(0.0, 1.0);
       
         public MainWindow()
@@ -65,6 +65,7 @@ namespace aplimat_labs
 
             CubeMesh myCube = new CubeMesh();
             myCube.Position = new Vector3(Gaussian.Generate(0,15),rng.GenerateInt(), 0);
+            
             myCubes.Add(myCube);
 
             int counter = 0;
@@ -83,6 +84,7 @@ namespace aplimat_labs
                 if(counter >= 100)
                 {
                     counter = 0;
+                    myCubes = new List<CubeMesh>();
                 }
                 
                 
