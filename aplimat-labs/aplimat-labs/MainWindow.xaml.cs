@@ -1,4 +1,6 @@
-﻿using SharpGL;
+﻿using aplimat_labs.Models;
+using aplimat_labs.Utilities;
+using SharpGL;
 using SharpGL.SceneGraph.Primitives;
 using SharpGL.SceneGraph.Quadrics;
 using System;
@@ -24,12 +26,30 @@ namespace aplimat_labs
         private const float LINE_SMOOTHNESS = 0.02f;
         private const float GRAPH_LIMIT = 15;
         private const int TOTAL_CIRCLE_ANGLE = 360;
+
+        private Vector3 a = new Vector3(15,15,0);
+        private Vector3 b = new Vector3(-2,10,0);
+
+        private const int HEADS = 0;
+        private const int TAILS = 7;
+        
+
+        private Randomizer rng = new Randomizer(HEADS, TAILS);
         public MainWindow()
         {
             InitializeComponent();
             this.KeyDown += new KeyEventHandler(MainWindow_KeyDown);
+
+            //Vector3 c = a + b;
+
+            //Console.WriteLine("Vector C = x " + c.x + " y " + c.y +" z " + c.z);
+
+            //Vector3 d = a - b;
+            //Console.WriteLine("Vector C = x " + d.x + " y " + d.y + " z " + d.z);
+
         }
 
+        private CubeMesh myCube = new CubeMesh(2, 1, 0);
         private void OpenGLControl_OpenGLDraw(object sender, SharpGL.SceneGraph.OpenGLEventArgs args)
         {
             OpenGL gl = args.OpenGL;
@@ -38,11 +58,54 @@ namespace aplimat_labs
 
             gl.Translate(0.0f, 0.0f, -40.0f);
             //gl.Color(0, 1, 0);
-            DrawCartesianPlane(gl); //draw cartesian plane with unit lines
-            DrawPoint(gl, 1, 1); //draw a point with coordinates (1, 1)
-            DrawLinearFunction(gl);
-            DrawQuadraticFunction(gl);
-            DrawCircle(gl);
+            
+            switch(rng.Generate())
+            {
+                case HEADS:
+                    myCube.Position += new Vector3(0.1f, 0.0f, 0.0f);
+                    break;
+
+                case 1:
+                    myCube.Position += new Vector3(0.0f, 0.1f, 0.0f);
+                    break;
+
+                case 2:
+                    myCube.Position += new Vector3(0.0f, -0.1f, 0.0f);
+                    break;
+
+                case 3:
+                    myCube.Position += new Vector3(0.1f, 0.1f, 0.0f);
+                    break;
+                case 4:
+                    myCube.Position += new Vector3(-0.1f, 0.1f, 0.0f);
+                    break;
+
+                case 5:
+                    myCube.Position += new Vector3(-0.1f, -0.1f, 0.0f);
+                    break;
+
+                case 6:
+                    myCube.Position += new Vector3(0.1f, -0.1f, 0.0f);
+                    break;
+
+                case TAILS:
+                    myCube.Position += new Vector3(-0.1f, 0.0f, 0.0f);
+                    break;
+
+                default:
+                    myCube.Position += new Vector3(0.0f, 0.0f, 0.0f);
+                    break;
+            }
+          
+            myCube.Draw(gl);
+
+           
+
+            //DrawCartesianPlane(gl); //draw cartesian plane with unit lines
+            //DrawPoint(gl, 1, 1); //draw a point with coordinates (1, 1)
+            //DrawLinearFunction(gl);
+            //DrawQuadraticFunction(gl);
+            //DrawCircle(gl);
         }
         
 
