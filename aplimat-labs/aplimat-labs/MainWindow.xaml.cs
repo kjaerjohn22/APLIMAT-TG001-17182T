@@ -44,12 +44,21 @@ namespace aplimat_labs
 
         private CubeMesh myCube = new CubeMesh();
         private Vector3 velocity = new Vector3(1, 0, 0);
-      
+        private Vector3 Origin = new Vector3(0, 0,0);
+        private float speed = 2.0f;
+        public Point pos;
+        public Vector3 c;
+
+
         public MainWindow()
         {
             InitializeComponent();
             this.KeyDown += new KeyEventHandler(MainWindow_KeyDown);
+            myVector = a - b;
+            Console.WriteLine(myVector.GetMagnitude());
+           
 
+            // 
             //Vector3 c = a + b;
 
             //Console.WriteLine("Vector C = x " + c.x + " y " + c.y +" z " + c.z);
@@ -60,6 +69,10 @@ namespace aplimat_labs
         }
 
         //private CubeMesh myCube = new CubeMesh(2, 1, 0);
+        private Vector3 myVector = new Vector3();
+        private Vector3 a = new Vector3(3, 5, 0);
+        public Vector3 b = new Vector3(5, 7, 0);
+        
         private void OpenGLControl_OpenGLDraw(object sender, SharpGL.SceneGraph.OpenGLEventArgs args)
         {
             OpenGL gl = args.OpenGL;
@@ -67,115 +80,48 @@ namespace aplimat_labs
             gl.LoadIdentity();
 
             gl.Translate(0.0f, 0.0f, -40.0f);
+             c = new Vector3((pos.X - 400) / 10, -(pos.Y - 250) / 2 , 0);
+           
+            /* gl.Color(0.0f, 1.0f, 0.0f);
+             gl.Begin(OpenGL.GL_LINE_STRIP);
+             gl.Vertex(0, 0);
+             gl.Vertex(a.x, a.y);
+             gl.End();
 
-           // CubeMesh myCube = new CubeMesh();
-            //myCube.Position = new Vector3(Gaussian.Generate(0,15),rng.GenerateInt(), 0);
+             gl.Color(1.0f, 1.0f, 0.0f);
+             gl.Begin(OpenGL.GL_LINE_STRIP);
+             gl.Vertex(a.x, a.y);
+             gl.Vertex(b.x, b.y);
+             gl.End();
 
-            //myCubes.Add(myCube);
+             gl.Color(1.0f, 0.0f, 1.0f);
+             gl.Begin(OpenGL.GL_LINE_STRIP);
+             gl.Vertex(b.x, b.y);
+             gl.Vertex(0, 0);
+             gl.End();
 
-            //int counter = 0;
+             gl.DrawText(0, 0, 1, 1, 1, "Arial", 15, "My magnitude is" + myVector.GetMagnitude());
+             */
 
-            //foreach(var cube in myCubes)
-            //{
-            //    gl.Color(colorA.GenerateDouble(), colorA.GenerateDouble(), colorA.GenerateDouble());
-
-
-            //    if(counter >= 0)
-            //    {
-            //        cube.Draw(gl);
-            //        counter++;
-            //    }
-
-            //    if(counter >= 100)
-            //    {
-            //        counter = 0;
-            //        myCubes = new List<CubeMesh>();
-            //    }
-
-
-            //}
-
-
-
-
-            /* switch(rng.Generate())
-             {
-                 case 0:
-                     myCube.Position += new Vector3(0.1f, 0.0f, 0.0f);
-                     break;
-
-                 case 1:
-                     myCube.Position += new Vector3(0.0f, 0.1f, 0.0f);
-                     break;
-
-                 case 2:
-                     myCube.Position += new Vector3(0.0f, -0.1f, 0.0f);
-                     break;
-
-                 case 3:
-                     myCube.Position += new Vector3(0.1f, 0.1f, 0.0f);
-                     break;
-                 case 4:
-                     myCube.Position += new Vector3(-0.1f, 0.1f, 0.0f);
-                     break;
-
-                 case 5:
-                     myCube.Position += new Vector3(-0.1f, -0.1f, 0.0f);
-                     break;
-
-                 case 6:
-                     myCube.Position += new Vector3(0.1f, -0.1f, 0.0f);
-                     break;
-
-                 case 7:
-                     myCube.Position += new Vector3(-0.1f, 0.0f, 0.0f);
-                     break;
-
-                 default:
-                     myCube.Position += new Vector3(0.0f, 0.0f, 0.0f);
-                     break;
-             }*/
-
-
-            // myCube.Position += new Vector3(rng.GenerateInt(),rng.GenerateInt());
-
-            //myCube.Draw(gl);
-
-
-
-            //DrawCartesianPlane(gl); //draw cartesian plane with unit lines
-            //DrawPoint(gl, 1, 1); //draw a point with coordinates (1, 1)
-            //DrawLinearFunction(gl);
-            //DrawQuadraticFunction(gl);
-            //DrawCircle(gl);
-
-
-
-            myCube.Draw(gl);
-            myCube.Position += velocity;
-
-            if (myCube.Position.x >= 26.0f)
-            {
-                velocity.x = -1;
-            }
          
-            else if (myCube.Position.x <= -26.0f)
-            {
-                velocity.x = 1;
-                velocity.y = 1;
-            }
+             
 
-            if (myCube.Position.y >= 15.0f)
-            {
-                velocity.y = -1;
-            }
+            gl.Color(0.1f, 0.1f, 0.4f);
+            gl.LineWidth(10.0f);
+            gl.Begin(OpenGL.GL_LINE_STRIP);
+            gl.Vertex(Origin.x, Origin.y);
+            gl.Vertex(c.x, c.y);
+            gl.End();
 
-            else if (myCube.Position.y <= -15.0f)
-            {
-                velocity.y = 1;
-            }
+            gl.Color(0.2f, 0.3f, 0.8f);
+            gl.LineWidth(20.0f);
+            gl.Begin(OpenGL.GL_LINE_STRIP);
+            gl.Vertex(Origin.x, Origin.y);
+            gl.Vertex(c.x, c.y);
+            gl.End();
 
-     
+            gl.DrawText(0, 0, 1, 1, 1, "Arial", 15, "My magnitude is" + (c.GetMagnitude() - Origin.GetMagnitude() ));
+
 
 
 
@@ -211,6 +157,8 @@ namespace aplimat_labs
                 gl.Vertex(i, -0.2f, 0);
                 gl.Vertex(i, 0.2f, 0);
                 gl.End();
+
+                
             }
         }
 
@@ -294,6 +242,18 @@ namespace aplimat_labs
             switch (e.Key)
             {
                 case Key.W:
+                           c.y += 1 * speed;
+                    break;
+
+                case Key.S:
+                           c.y -= 1 * speed;
+                    break;
+                case Key.A:
+                           c.x -= 1 * speed;
+                    break;
+
+                case Key.D:
+                           c.x += 1 * speed;
                     break;
             }
         } 
@@ -319,11 +279,11 @@ namespace aplimat_labs
             gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_AMBIENT, light0ambient);
             gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_DIFFUSE, light0diffuse);
             gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_SPECULAR, light0specular);
-            gl.Enable(OpenGL.GL_LIGHTING);
-            gl.Enable(OpenGL.GL_LIGHT0);
+            //gl.Enable(OpenGL.GL_LIGHTING);
+            //gl.Enable(OpenGL.GL_LIGHT0);
 
-            //gl.Disable(OpenGL.GL_LIGHT0);
-           // gl.Disable(OpenGL.GL_LIGHTING);
+            gl.Disable(OpenGL.GL_LIGHT0);
+            gl.Disable(OpenGL.GL_LIGHTING);
             gl.ShadeModel(OpenGL.GL_SMOOTH);
 
            
@@ -337,5 +297,10 @@ namespace aplimat_labs
             gl.DrawText(x, y, 1, 1, 1, "Arial", 12, text);
         }
         #endregion
+
+        private void OpenGLControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            pos = e.GetPosition(this);
+        }
     }
 }
