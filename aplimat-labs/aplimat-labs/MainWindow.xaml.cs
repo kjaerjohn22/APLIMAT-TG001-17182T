@@ -153,18 +153,16 @@ namespace aplimat_labs
 
             myCube.Draw(gl);
             myCube.Position += velocity;
-          
 
             if (myCube.Position.x >= 26.0f)
             {
                 velocity.x = -1;
-                velocity.y = -1;
             }
-
-            if (myCube.Position.x <= -26.0f)
+         
+            else if (myCube.Position.x <= -26.0f)
             {
                 velocity.x = 1;
-                velocity.y = -1;
+                velocity.y = 1;
             }
 
             if (myCube.Position.y >= 15.0f)
@@ -172,11 +170,12 @@ namespace aplimat_labs
                 velocity.y = -1;
             }
 
-            if (myCube.Position.y <= -15.0f)
+            else if (myCube.Position.y <= -15.0f)
             {
                 velocity.y = 1;
             }
 
+     
 
 
 
