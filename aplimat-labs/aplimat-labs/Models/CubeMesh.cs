@@ -31,10 +31,10 @@ namespace aplimat_labs.Models
         {
             gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
             //Front
-            gl.Vertex(this.Position.x - 0.5f, this.Position.y + rng.GenerateDouble(), this.Position.z + 0.5f);
-            gl.Vertex(this.Position.x - 0.5f, this.Position.y - rng.GenerateDouble(), this.Position.z + 0.5f);
-            gl.Vertex(this.Position.x + 0.5f, this.Position.y + rng.GenerateDouble(), this.Position.z + 0.5f);
-            gl.Vertex(this.Position.x + 0.5f, this.Position.y - rng.GenerateDouble(), this.Position.z + 0.5f);
+            gl.Vertex(this.Position.x - 0.5f, this.Position.y + 0.5f, this.Position.z + 0.5f);
+            gl.Vertex(this.Position.x - 0.5f, this.Position.y - 0.5f ,this.Position.z + 0.5f);
+            gl.Vertex(this.Position.x + 0.5f, this.Position.y + 0.5f ,this.Position.z + 0.5f);
+            gl.Vertex(this.Position.x + 0.5f, this.Position.y - 0.5f, this.Position.z + 0.5f);
          
 
             //Right 

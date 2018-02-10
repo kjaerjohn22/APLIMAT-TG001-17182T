@@ -33,12 +33,17 @@ namespace aplimat_labs
         // private const int HEADS = 0;
         // private const int TAILS = 7;
 
-        private List<CubeMesh> myCubes = new List<CubeMesh>();
+        //private List<CubeMesh> myCubes = new List<CubeMesh>();
 
-        private Randomizer rng = new Randomizer(-20,20);
-        private Randomizer colorA = new Randomizer(0.0, 1.0);
-        private Randomizer colorB = new Randomizer(1.0, 2.0);
-        private Randomizer colorC = new Randomizer(0.0, 1.0);
+        //private Randomizer rng = new Randomizer(-20,20);
+        //private Randomizer colorA = new Randomizer(0.0, 1.0);
+        //private Randomizer colorB = new Randomizer(1.0, 2.0);
+        //private Randomizer colorC = new Randomizer(0.0, 1.0);
+
+     
+
+        private CubeMesh myCube = new CubeMesh();
+        private Vector3 velocity = new Vector3(1, 0, 0);
       
         public MainWindow()
         {
@@ -61,88 +66,120 @@ namespace aplimat_labs
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             gl.LoadIdentity();
 
-            gl.Translate(0.0f, 0.0f, -100.0f);
+            gl.Translate(0.0f, 0.0f, -40.0f);
 
-            CubeMesh myCube = new CubeMesh();
-            myCube.Position = new Vector3(Gaussian.Generate(0,15),rng.GenerateInt(), 0);
-            
-            myCubes.Add(myCube);
+           // CubeMesh myCube = new CubeMesh();
+            //myCube.Position = new Vector3(Gaussian.Generate(0,15),rng.GenerateInt(), 0);
 
-            int counter = 0;
+            //myCubes.Add(myCube);
 
-            foreach(var cube in myCubes)
-            {
-                gl.Color(colorA.GenerateDouble(), colorA.GenerateDouble(), colorA.GenerateDouble());
-                
+            //int counter = 0;
 
-                if(counter >= 0)
-                {
-                    cube.Draw(gl);
-                    counter++;
-                }
-
-                if(counter >= 100)
-                {
-                    counter = 0;
-                    myCubes = new List<CubeMesh>();
-                }
-                
-                
-            }
-
-          
+            //foreach(var cube in myCubes)
+            //{
+            //    gl.Color(colorA.GenerateDouble(), colorA.GenerateDouble(), colorA.GenerateDouble());
 
 
-           /* switch(rng.Generate())
-            {
-                case 0:
-                    myCube.Position += new Vector3(0.1f, 0.0f, 0.0f);
-                    break;
+            //    if(counter >= 0)
+            //    {
+            //        cube.Draw(gl);
+            //        counter++;
+            //    }
 
-                case 1:
-                    myCube.Position += new Vector3(0.0f, 0.1f, 0.0f);
-                    break;
-
-                case 2:
-                    myCube.Position += new Vector3(0.0f, -0.1f, 0.0f);
-                    break;
-
-                case 3:
-                    myCube.Position += new Vector3(0.1f, 0.1f, 0.0f);
-                    break;
-                case 4:
-                    myCube.Position += new Vector3(-0.1f, 0.1f, 0.0f);
-                    break;
-
-                case 5:
-                    myCube.Position += new Vector3(-0.1f, -0.1f, 0.0f);
-                    break;
-
-                case 6:
-                    myCube.Position += new Vector3(0.1f, -0.1f, 0.0f);
-                    break;
-
-                case 7:
-                    myCube.Position += new Vector3(-0.1f, 0.0f, 0.0f);
-                    break;
-
-                default:
-                    myCube.Position += new Vector3(0.0f, 0.0f, 0.0f);
-                    break;
-            }*/
+            //    if(counter >= 100)
+            //    {
+            //        counter = 0;
+            //        myCubes = new List<CubeMesh>();
+            //    }
 
 
-           // myCube.Position += new Vector3(rng.GenerateInt(),rng.GenerateInt());
-          
+            //}
+
+
+
+
+            /* switch(rng.Generate())
+             {
+                 case 0:
+                     myCube.Position += new Vector3(0.1f, 0.0f, 0.0f);
+                     break;
+
+                 case 1:
+                     myCube.Position += new Vector3(0.0f, 0.1f, 0.0f);
+                     break;
+
+                 case 2:
+                     myCube.Position += new Vector3(0.0f, -0.1f, 0.0f);
+                     break;
+
+                 case 3:
+                     myCube.Position += new Vector3(0.1f, 0.1f, 0.0f);
+                     break;
+                 case 4:
+                     myCube.Position += new Vector3(-0.1f, 0.1f, 0.0f);
+                     break;
+
+                 case 5:
+                     myCube.Position += new Vector3(-0.1f, -0.1f, 0.0f);
+                     break;
+
+                 case 6:
+                     myCube.Position += new Vector3(0.1f, -0.1f, 0.0f);
+                     break;
+
+                 case 7:
+                     myCube.Position += new Vector3(-0.1f, 0.0f, 0.0f);
+                     break;
+
+                 default:
+                     myCube.Position += new Vector3(0.0f, 0.0f, 0.0f);
+                     break;
+             }*/
+
+
+            // myCube.Position += new Vector3(rng.GenerateInt(),rng.GenerateInt());
+
             //myCube.Draw(gl);
 
-           
+
 
             //DrawCartesianPlane(gl); //draw cartesian plane with unit lines
             //DrawPoint(gl, 1, 1); //draw a point with coordinates (1, 1)
             //DrawLinearFunction(gl);
             //DrawQuadraticFunction(gl);
             //DrawCircle(gl);
+
+
+
+            myCube.Draw(gl);
+            myCube.Position += velocity;
+          
+
+            if (myCube.Position.x >= 26.0f)
+            {
+                velocity.x = -1;
+                velocity.y = -1;
+            }
+
+            if (myCube.Position.x <= -26.0f)
+            {
+                velocity.x = 1;
+                velocity.y = -1;
+            }
+
+            if (myCube.Position.y >= 15.0f)
+            {
+                velocity.y = -1;
+            }
+
+            if (myCube.Position.y <= -15.0f)
+            {
+                velocity.y = 1;
+            }
+
+
+
+
         }
         
 
@@ -283,11 +320,11 @@ namespace aplimat_labs
             gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_AMBIENT, light0ambient);
             gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_DIFFUSE, light0diffuse);
             gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_SPECULAR, light0specular);
-            //gl.Enable(OpenGL.GL_LIGHTING);
-            //gl.Enable(OpenGL.GL_LIGHT0);
+            gl.Enable(OpenGL.GL_LIGHTING);
+            gl.Enable(OpenGL.GL_LIGHT0);
 
-            gl.Disable(OpenGL.GL_LIGHT0);
-            gl.Disable(OpenGL.GL_LIGHTING);
+            //gl.Disable(OpenGL.GL_LIGHT0);
+           // gl.Disable(OpenGL.GL_LIGHTING);
             gl.ShadeModel(OpenGL.GL_SMOOTH);
 
            
